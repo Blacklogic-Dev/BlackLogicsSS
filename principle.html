@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackLogic Software Studio - Principles Studio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(to bottom, #4b5563, #000000); /* gray to black gradient */
+            color: #00ffff; /* electric blue code font */
+        }
+        .section-title {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #00ffff;
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+        .card {
+            background: rgba(0,0,0,0.6);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .card:hover {
+            background: rgba(0,255,255,0.1);
+        }
+        .card i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .view-btn {
+            margin-top: 10px;
+            background: #00ffff;
+            color: black;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .view-btn:hover {
+            background: #00cccc;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-6">
+
+    <div class="text-center mb-8">
+        <h1 class="section-title">Principles Studio</h1>
+        <p class="text-gray-300">Here you can explore the core principles of BlackLogic Technologies for engineers and designers.</p>
+    </div>
+
+    <!-- Engineering Principles Section -->
+    <div class="mb-12">
+        <h2 class="section-title">Engineering Principles</h2>
+        <p class="mb-4 text-gray-300">The bunch of rules, theory, and application that every engineer and developer needs to master in order to qualify to work at BlackLogic Technologies.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Card 1 -->
+            <div class="card">
+                <i class="fas fa-cogs text-cyan-400"></i>
+                <p class="mt-2 text-gray-300">Problem Solving & Logic</p>
+                <button class="view-btn" onclick="window.open('engineering_principles.pdf','_blank')">View PDF</button>
+            </div>
+            <!-- Card 2 -->
+            <div class="card">
+                <i class="fas fa-network-wired text-green-400"></i>
+                <p class="mt-2 text-gray-300">System Design & Architecture</p>
+                <button class="view-btn" onclick="window.open('engineering_principles.pdf','_blank')">View PDF</button>
+            </div>
+            <!-- Card 3 -->
+            <div class="card">
+                <i class="fas fa-code text-yellow-400"></i>
+                <p class="mt-2 text-gray-300">Clean Code & Standards</p>
+                <button class="view-btn" onclick="window.open('engineering_principles.pdf','_blank')">View PDF</button>
+            </div>
+            <!-- Card 4 -->
+            <div class="card">
+                <i class="fas fa-vial text-purple-400"></i>
+                <p class="mt-2 text-gray-300">Testing & Debugging</p>
+                <button class="view-btn" onclick="window.open('engineering_principles.pdf','_blank')">View PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Design Principles Section -->
+    <div>
+        <h2 class="section-title">Design Principles</h2>
+        <p class="mb-4 text-gray-300">The core design rules and best practices to create visually consistent, user-friendly, and engaging products.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Card 1 -->
+            <div class="card">
+                <i class="fas fa-paint-brush text-pink-400"></i>
+                <p class="mt-2 text-gray-300">Color Theory & Typography</p>
+                <button class="view-btn" onclick="window.open('design_principles.pdf','_blank')">View PDF</button>
+            </div>
+            <!-- Card 2 -->
+            <div class="card">
+                <i class="fas fa-object-ungroup text-orange-400"></i>
+                <p class="mt-2 text-gray-300">Layout & Composition</p>
+                <button class="view-btn" onclick="window.open('design_principles.pdf','_blank')">View PDF</button>
+            </div>
+            <!-- Card 3 -->
+            <div class="card">
+                <i class="fas fa-shapes text-purple-400"></i>
+                <p class="mt-2 text-gray-300">UI & UX Principles</p>
+                <button class="view-btn" onclick="window.open('design_principles.pdf','_blank')">View PDF</button>
+            </div>
+            <!-- Card 4 -->
+            <div class="card">
+                <i class="fas fa-lightbulb text-yellow-400"></i>
+                <p class="mt-2 text-gray-300">Creativity & Innovation</p>
+                <button class="view-btn" onclick="window.open('design_principles.pdf','_blank')">View PDF</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

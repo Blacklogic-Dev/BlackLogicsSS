@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlackLogic Software Studio - Prompt Studio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+    body { font-family: 'Courier New', monospace; background: linear-gradient(to bottom, #555, #000); min-height: 100vh; color: #00ffff; }
+    .typewriter h1 { overflow: hidden; border-right: .15em solid #00ffff; white-space: nowrap; animation: typing 2.5s steps(30, end), blink-caret .75s step-end infinite; font-size: 24px; text-align:center; }
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #00ffff } }
+    .card { background: rgba(0,0,0,0.7); padding: 15px; border-radius: 12px; margin-top:10px; }
+    .copy-btn { cursor: pointer; margin-left: 10px; color: #00ffff; }
+</style>
+</head>
+<body class="p-4">
+
+<!-- Typewriter -->
+<div class="typewriter">
+    <h1>Welcome to Prompt Studio</h1>
+</div>
+
+<!-- Toggle Form Section -->
+<div class="flex justify-center mt-6 space-x-4">
+    <button id="devBtn" class="px-4 py-2 bg-cyan-400 hover:bg-cyan-500 rounded font-bold">Development</button>
+    <button id="designBtn" class="px-4 py-2 bg-pink-400 hover:bg-pink-500 rounded font-bold">Design</button>
+</div>
+
+<!-- Development Form -->
+<form id="devForm" class="mt-6 space-y-4 max-w-3xl mx-auto card">
+    <h2 class="text-cyan-400 text-lg font-bold">Development Prompt Generator</h2>
+
+    <div>
+        <label>Choose Type:</label>
+        <select id="devType" class="w-full p-2 rounded bg-gray-800">
+            <option value="frontend">Frontend</option>
+            <option value="backend">Backend</option>
+        </select>
+    </div>
+
+    <div id="devLangDiv">
+        <label>Choose Language / Framework:</label>
+        <select id="devLang" class="w-full p-2 rounded bg-gray-800">
+            <option value="html-css-js">HTML, CSS, JS</option>
+            <option value="html5-tailwind">HTML5 + Tailwind CSS</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Project Name:</label>
+        <input type="text" id="devProject" class="w-full p-2 rounded bg-gray-800" placeholder="E.g., Portfolio website, Blog, Dashboard">
+    </div>
+
+    <div>
+        <label>Additional Requirements:</label>
+        <textarea id="devExtra" class="w-full p-2 rounded bg-gray-800" placeholder="E.g., Responsive, Dark Mode, Animations"></textarea>
+    </div>
+
+    <button type="button" onclick="generateDevPrompt()" class="px-4 py-2 bg-cyan-400 hover:bg-cyan-500 rounded font-bold">Generate Prompt</button>
+</form>
+
+<!-- Design Form -->
+<form id="designForm" class="mt-6 space-y-4 max-w-3xl mx-auto card hidden">
+    <h2 class="text-pink-400 text-lg font-bold">Design Prompt Generator</h2>
+
+    <div>
+        <label>Type:</label>
+        <select id="designType" class="w-full p-2 rounded bg-gray-800">
+            <option value="logo">Logo</option>
+            <option value="image">Image Generation</option>
+        </select>
+    </div>
+
+    <div id="logoInputs">
+        <label>Icon / Symbol:</label>
+        <input type="text" id="logoIcon" class="w-full p-2 rounded bg-gray-800" placeholder="E.g., Falcon, Circle, Cube">
+
+        <label>Font Type:</label>
+        <input type="text" id="logoFont" class="w-full p-2 rounded bg-gray-800" placeholder="E.g., Monospace, Sans-serif">
+
+        <label>Primary Colors (comma separated):</label>
+        <input type="text" id="logoColors" class="w-full p-2 rounded bg-gray-800" placeholder="E.g., Blue, Red, Gradient">
+
+        <label>Style / Theme:</label>
+        <input type="text" id="logoStyle" class="w-full p-2 rounded bg-gray-800" placeholder="E.g., Minimalistic, Futuristic, Retro">
+    </div>
+
+    <div id="imageInputs" class="hidden">
+        <label>Main Image / Object:</label>
+        <input type="text" id="imgObject" class="w-full p-2 rounded bg-gray-800" placeholder="E.g., Futuristic City, Mountain, Robot">
+
+        <label>Colors (comma separated):</label>
+        <input type="text" id="imgColors" class="w-full p-2 rounded bg-gray-800" placeholder="E.g., Blue, Red, Gradient">
+
+        <label>Background:</label>
+        <input type="text" id="imgBackground" class="w-full p-2 rounded bg-gray-800" placeholder="E.g., Transparent, Black, White">
+
+        <label>Style / Theme:</label>
+        <input type="text" id="imgStyle" class="w-full p-2 rounded bg-gray-800" placeholder="E.g., Minimalistic, Futuristic, Cartoonish">
+    </div>
+
+    <button type="button" onclick="generateDesignPrompt()" class="px-4 py-2 bg-pink-400 hover:bg-pink-500 rounded font-bold">Generate Prompt</button>
+</form>
+
+<!-- Prompt Result Grids -->
+<div class="max-w-3xl mx-auto mt-6 space-y-4">
+    <h3 class="text-cyan-400 text-lg font-bold">Development Prompts</h3>
+    <div id="devPromptResults"></div>
+
+    <h3 class="text-pink-400 text-lg font-bold mt-6">Design Prompts</h3>
+    <div id="designPromptResults"></div>
+</div>
+
+<script>
+const devBtn = document.getElementById('devBtn');
+const designBtn = document.getElementById('designBtn');
+const devForm = document.getElementById('devForm');
+const designForm = document.getElementById('designForm');
+
+devBtn.addEventListener('click', () => { devForm.classList.remove('hidden'); designForm.classList.add('hidden'); });
+designBtn.addEventListener('click', () => { designForm.classList.remove('hidden'); devForm.classList.add('hidden'); });
+
+const devType = document.getElementById('devType');
+const devLangDiv = document.getElementById('devLangDiv');
+
+devType.addEventListener('change', () => {
+    if(devType.value === 'frontend') {
+        devLangDiv.innerHTML = `<label>Choose Language / Framework:</label>
+            <select id="devLang" class="w-full p-2 rounded bg-gray-800">
+                <option value="html-css-js">HTML, CSS, JS</option>
+                <option value="html5-tailwind">HTML5 + Tailwind CSS</option>
+            </select>`;
+    } else {
+        devLangDiv.innerHTML = `<label>Choose Language:</label>
+            <select id="devLang" class="w-full p-2 rounded bg-gray-800">
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+            </select>`;
+    }
+});
+
+function generateDevPrompt() {
+    const type = document.getElementById('devType').value;
+    const lang = document.getElementById('devLang').value;
+    const project = document.getElementById('devProject').value.trim();
+    const extra = document.getElementById('devExtra').value.trim();
+    if(!project) { alert('Please describe your project!'); return; }
+
+    const promptText = `Generate a ${type} project using ${lang}. Project description: ${project}. Additional requirements: ${extra}. Provide full code with inline HTML, CSS, and JS for frontend, or full backend code if backend.`;
+
+    addDevPrompt(promptText);
+}
+
+function addDevPrompt(text) {
+    const devPromptResults = document.getElementById('devPromptResults');
+    const card = document.createElement('div');
+    card.className = 'card flex justify-between items-center';
+    card.innerHTML = `<span>${text}</span><i class="fas fa-copy copy-btn" onclick="copyPrompt(this)"></i>`;
+    devPromptResults.prepend(card);
+}
+
+const designType = document.getElementById('designType');
+const logoInputs = document.getElementById('logoInputs');
+const imageInputs = document.getElementById('imageInputs');
+
+designType.addEventListener('change', () => {
+    if(designType.value === 'logo') {
+        logoInputs.classList.remove('hidden');
+        imageInputs.classList.add('hidden');
+    } else {
+        logoInputs.classList.add('hidden');
+        imageInputs.classList.remove('hidden');
+    }
+});
+
+function generateDesignPrompt() {
+    let promptText = '';
+    if(designType.value === 'logo') {
+        const icon = document.getElementById('logoIcon').value.trim();
+        const font = document.getElementById('logoFont').value.trim();
+        const colors = document.getElementById('logoColors').value.trim();
+        const style = document.getElementById('logoStyle').value.trim();
+        if(!icon || !font || !colors || !style) { alert('Please fill all fields!'); return; }
+        promptText = `Generate a professional logo with icon "${icon}", font "${font}", primary colors "${colors}", and style/theme "${style}".`;
+    } else {
+        const object = document.getElementById('imgObject').value.trim();
+        const colors = document.getElementById('imgColors').value.trim();
+        const bg = document.getElementById('imgBackground').value.trim();
+        const style = document.getElementById('imgStyle').value.trim();
+        if(!object || !colors || !bg || !style) { alert('Please fill all fields!'); return; }
+        promptText = `Generate an image of "${object}" with colors "${colors}", background "${bg}", and style/theme "${style}".`;
+    }
+    addDesignPrompt(promptText);
+}
+
+function addDesignPrompt(text) {
+    const designPromptResults = document.getElementById('designPromptResults');
+    const card = document.createElement('div');
+    card.className = 'card flex justify-between items-center';
+    card.innerHTML = `<span>${text}</span><i class="fas fa-copy copy-btn" onclick="copyPrompt(this)"></i>`;
+    designPromptResults.prepend(card);
+}
+
+function copyPrompt(icon) {
+    const text = icon.previousElementSibling.textContent;
+    navigator.clipboard.writeText(text);
+    icon.style.color = 'lime';
+    setTimeout(() => icon.style.color = '#00ffff', 1000);
+}
+</script>
+</body>
+</html>

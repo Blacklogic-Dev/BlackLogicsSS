@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlackLogic AI Code Hub</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    background: #0a0a0a;
+    color: #39FF14;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  /* Header */
+  #header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: #000;
+    border-bottom: 2px solid #39FF14;
+    gap: 1rem;
+  }
+
+  #header img {
+    height: 40px;
+    width: 40px;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+
+  #header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #39FF14;
+  }
+
+  /* Grids container */
+  #selection-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .grid-option {
+    flex: 1 1 200px;
+    background: #111;
+    border: 2px solid #39FF14;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .grid-option:hover {
+    transform: scale(1.05);
+    background: #222;
+  }
+
+  .grid-option i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+    color: #39FF14;
+  }
+
+  .grid-option span {
+    display: block;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #39FF14;
+  }
+
+  /* Iframe container */
+  #editor-container {
+    flex: 1;
+    overflow: hidden;
+    display: none; /* hidden initially */
+  }
+
+  iframe#editorIframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <img src="Black.png" alt="BlackLogic AI Logo">
+  <h1>BLACKLOGIC AI CODE HUB</h1>
+</div>
+
+<!-- Front-end / Back-end selection -->
+<div id="selection-container">
+  <div class="grid-option" id="frontend">
+    <i class="fas fa-desktop"></i>
+    <span>Front-end</span>
+  </div>
+  <div class="grid-option" id="backend">
+    <i class="fas fa-server"></i>
+    <span>Back-end</span>
+  </div>
+</div>
+
+<!-- Iframe editor -->
+<div id="editor-container">
+  <iframe id="editorIframe"></iframe>
+</div>
+
+<script>
+  const selectionContainer = document.getElementById('selection-container');
+  const editorContainer = document.getElementById('editor-container');
+  const editorIframe = document.getElementById('editorIframe');
+
+  // URLs for editors
+  const editors = {
+    frontend: 'https://jsfiddle.net/',
+    backend: 'https://www.online-ide.com/'
+  };
+
+  // Click Front-end
+  document.getElementById('frontend').addEventListener('click', () => {
+    editorIframe.src = editors.frontend;
+    selectionContainer.style.display = 'none';
+    editorContainer.style.display = 'block';
+  });
+
+  // Click Back-end
+  document.getElementById('backend').addEventListener('click', () => {
+    editorIframe.src = editors.backend;
+    selectionContainer.style.display = 'none';
+    editorContainer.style.display = 'block';
+  });
+</script>
+
+</body>
+</html>

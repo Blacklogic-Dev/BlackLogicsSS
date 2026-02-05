@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlackLogic Software Studio - Meeting Studio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+    body {
+        font-family: 'Courier New', monospace;
+    }
+
+    /* Typewriter */
+    .typewriter {
+        overflow: hidden;
+        border-right: .15em solid #00ffff;
+        white-space: nowrap;
+        animation: typing 6s steps(100, end), blink-caret .75s step-end infinite;
+        font-size: 20px;
+        color: #00ffff;
+    }
+
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #00ffff } }
+
+    .video-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+        margin-top: 20px;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+    }
+
+    .message-box {
+        background: rgba(0,0,0,0.6);
+        border-radius: 12px;
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    /* Comment Section */
+    .comments-container {
+        margin-top: 20px;
+        background: rgba(0,0,0,0.6);
+        padding: 15px;
+        border-radius: 12px;
+        max-height: 250px;
+        overflow-y: auto;
+    }
+
+    .comment {
+        padding: 6px 10px;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        color: #00ffff;
+    }
+
+    .input-group {
+        display: flex;
+        margin-top: 10px;
+    }
+
+    .input-group input {
+        flex: 1;
+        padding: 8px 10px;
+        border-radius: 6px 0 0 6px;
+        border: none;
+        background: rgba(255,255,255,0.1);
+        color: #00ffff;
+    }
+
+    .input-group button {
+        padding: 8px 12px;
+        border-radius: 0 6px 6px 0;
+        border: none;
+        background: #00ffff;
+        color: black;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .input-group button:hover {
+        background: #00cccc;
+    }
+
+    .like-share {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+        align-items: center;
+    }
+
+    .like-btn, .share-btn {
+        background: #00ffff;
+        color: black;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .like-btn:hover, .share-btn:hover {
+        background: #00cccc;
+    }
+
+    .liked {
+        animation: pop 0.3s ease forwards;
+    }
+
+    @keyframes pop {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.5); }
+        100% { transform: scale(1); }
+    }
+</style>
+</head>
+<body class="bg-gradient-to-b from-gray-700 to-black min-h-screen flex flex-col items-center p-4">
+
+    <!-- Participant Counter -->
+    <div class="counter mb-4 text-lightgreen" id="participant-counter">
+        Participants watching: 0
+    </div>
+
+    <!-- YouTube Video -->
+    <div class="video-container w-full max-w-4xl">
+        <iframe id="youtube-video" src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE?autoplay=1" 
+            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- Typewriter Message -->
+    <div class="message-box w-full max-w-4xl mt-6">
+        <div class="typewriter" id="typewriter-msg">
+            Welcome to BlackLogic Studios. We are so excited to be with you. Enjoy the live as we teach coding, curiosity, design, and creativity.
+        </div>
+    </div>
+
+    <!-- Like & Share Buttons -->
+    <div class="like-share w-full max-w-4xl mt-4">
+        <div class="like-btn" id="likeBtn"><i class="fas fa-thumbs-up"></i> Like <span id="likeCount">0</span></div>
+        <div class="share-btn" id="shareBtn"><i class="fas fa-share"></i> Share</div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-container w-full max-w-4xl" id="commentsContainer">
+        <!-- Comments appended here -->
+    </div>
+
+    <!-- Comment Input -->
+    <div class="input-group w-full max-w-4xl">
+        <input type="text" id="commentInput" placeholder="Write a comment...">
+        <button onclick="addComment()">Send</button>
+    </div>
+
+    <script>
+        // Participant counter
+        let participants = parseInt(localStorage.getItem('participants')) || 0;
+        const counterEl = document.getElementById('participant-counter');
+        participants++;
+        localStorage.setItem('participants', participants);
+        counterEl.textContent = `Participants watching: ${participants}`;
+        setInterval(() => {
+            participants++;
+            localStorage.setItem('participants', participants);
+            counterEl.textContent = `Participants watching: ${participants}`;
+        }, 10000); // Demo increment
+
+        // Likes
+        let likes = parseInt(localStorage.getItem('likes')) || 0;
+        const likeBtn = document.getElementById('likeBtn');
+        const likeCount = document.getElementById('likeCount');
+
+        function updateLikes() {
+            likeCount.textContent = likes;
+        }
+
+        likeBtn.addEventListener('click', () => {
+            likes++;
+            localStorage.setItem('likes', likes);
+            updateLikes();
+            likeBtn.classList.add('liked');
+            setTimeout(() => likeBtn.classList.remove('liked'), 300);
+        });
+
+        updateLikes();
+
+        // Comments
+        const commentsContainer = document.getElementById('commentsContainer');
+
+        function loadComments() {
+            const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
+            commentsContainer.innerHTML = '';
+            savedComments.forEach(c => {
+                const div = document.createElement('div');
+                div.classList.add('comment');
+                div.textContent = c;
+                commentsContainer.appendChild(div);
+            });
+        }
+
+        function addComment() {
+            const commentInput = document.getElementById('commentInput');
+            const comment = commentInput.value.trim();
+            if(comment === '') return;
+            const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
+            savedComments.push(comment);
+            localStorage.setItem('comments', JSON.stringify(savedComments));
+            commentInput.value = '';
+            loadComments();
+            commentsContainer.scrollTop = commentsContainer.scrollHeight;
+        }
+
+        loadComments();
+    </script>
+
+</body>
+</html>

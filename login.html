@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackLogic Software Studio - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background: linear-gradient(to bottom, #b0b0b0, #0a0a0a);
+        }
+
+        /* Logo */
+        .logo {
+            margin-top: 50px;
+            width: 250px;
+            height: auto;
+            border-radius: 20px;
+            animation: breathe 2s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Form container */
+        .login-container {
+            margin-top: 50px;
+            background: rgba(0,0,0,0.7);
+            padding: 30px 40px;
+            border-radius: 12px;
+            text-align: center;
+            color: #00ffff;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 12px 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: none;
+            font-size: 16px;
+            background: rgba(255,255,255,0.1);
+            color: #00ffff;
+        }
+
+        .login-container input::placeholder {
+            color: #00ffff;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #00ffff;
+            color: black;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .btn:hover {
+            background: #00cccc;
+        }
+
+        .loading-circle {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #00ffff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+        }
+
+        .error-msg {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .success-msg {
+            color: lightgreen;
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .login-button {
+            display: none;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="soft.jpg" alt="BlackLogic Logo" class="logo">
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="text" id="uniqueID" placeholder="Enter Unique ID">
+        <input type="password" id="accessCode" placeholder="Access Code">
+        <button class="btn" id="verifyBtn" onclick="verifyLogin()">Verify</button>
+        <div class="error-msg" id="error-msg">Verification failed! Login locked.</div>
+        <div class="success-msg" id="success-msg">Verification successful!</div>
+        <button class="btn login-button" id="loginBtn" onclick="goToDashboard()">Login</button>
+    </div>
+
+    <script>
+        const validIDs = ["KX0011", "KX1011", "KX1100", "KX1110"];
+        const accessCode = "Logic@26";
+
+        let verified = false;
+        let attempts = 0;
+        const maxAttempts = 3;
+
+        function verifyLogin() {
+            const idInput = document.getElementById("uniqueID").value.trim();
+            const accessInput = document.getElementById("accessCode").value.trim();
+            const errorMsg = document.getElementById("error-msg");
+            const successMsg = document.getElementById("success-msg");
+            const loginBtn = document.getElementById("loginBtn");
+            const verifyBtn = document.getElementById("verifyBtn");
+
+            if (attempts >= maxAttempts) {
+                errorMsg.innerText = "Maximum attempts reached! Login locked.";
+                errorMsg.style.display = "block";
+                verifyBtn.disabled = true;
+                return;
+            }
+
+            // Reset messages
+            errorMsg.style.display = "none";
+            successMsg.style.display = "none";
+
+            // Show loading
+            const loading = document.createElement("span");
+            loading.classList.add("loading-circle");
+            verifyBtn.appendChild(loading);
+
+            setTimeout(() => {
+                verifyBtn.removeChild(loading);
+
+                if(validIDs.includes(idInput) && accessInput === accessCode) {
+                    verified = true;
+                    successMsg.style.display = "block";
+                    loginBtn.style.display = "block";
+                    attempts = 0; // reset attempts on success
+                } else {
+                    verified = false;
+                    attempts++;
+                    errorMsg.innerText = `Verification failed! Attempts: ${attempts}/${maxAttempts}`;
+                    errorMsg.style.display = "block";
+                    loginBtn.style.display = "none";
+
+                    if(attempts >= maxAttempts) {
+                        errorMsg.innerText = "Maximum attempts reached! Login locked.";
+                        verifyBtn.disabled = true;
+                    }
+                }
+            }, 1500);
+        }
+
+        function goToDashboard() {
+            if(verified) {
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Please verify first!");
+            }
+        }
+    </script>
+
+</body>
+</html>

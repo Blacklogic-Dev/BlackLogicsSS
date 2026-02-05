@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackLogic Software Studio</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            background: url('studio.png') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Typewriter welcome */
+        .welcome {
+            margin-top: 50px;
+            font-size: 36px;
+            color: #00ffff; /* electric blue */
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: .15em solid #00ffff;
+            width: 12ch;
+            animation: typing 2s steps(12), blink .5s step-end infinite alternate;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 12ch }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
+
+        /* Login button */
+        .login-button {
+            margin-bottom: 50px;
+            padding: 15px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            background: #00ffff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-button:hover {
+            background: #00cccc;
+        }
+
+        @media (max-width: 480px) {
+            .welcome {
+                font-size: 28px;
+            }
+            .login-button {
+                font-size: 20px;
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="welcome"></div>
+
+    <button class="login-button" onclick="goToDashboard()">Login</button>
+
+    <script>
+        function goToDashboard() {
+            window.location.href = "login.html";
+        }
+    </script>
+
+</body>
+</html>
