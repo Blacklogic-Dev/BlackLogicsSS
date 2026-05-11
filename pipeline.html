@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackLogic | Pipeline Terminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --git-orange: #f05032;
+            --netlify-cyan: #00ad9f;
+            --bg: #020617;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--bg);
+            color: #f8fafc;
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+        }
+
+        .pipeline-connector {
+            height: 2px;
+            background: linear-gradient(90deg, var(--git-orange) 0%, var(--netlify-cyan) 100%);
+            flex-grow: 1;
+        }
+
+        .btn-external {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-external:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-12">
+
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-white/10 pb-6 gap-4">
+            <div>
+                <h1 class="text-2xl font-bold tracking-widest uppercase text-cyan-400">Pipeline_Control_v1.0</h1>
+                <p class="text-[10px] text-slate-500 mt-1 mono">AUTH_ID: BLACKLOGIC_ADMIN_01</p>
+            </div>
+            <div class="flex items-center gap-4 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
+                <span class="text-[10px] text-slate-400">LIVE_URL:</span>
+                <span class="text-xs text-cyan-400 select-all">blacklogic-studio.netlify.app</span>
+            </div>
+        </header>
+
+        <!-- Pipeline Nodes -->
+        <div class="glass-panel rounded-3xl p-10 mb-8 border-cyan-400/20">
+            <div class="flex items-center justify-between">
+                <div class="flex flex-col items-center">
+                    <i class="fab fa-github text-4xl text-[#f05032] mb-3"></i>
+                    <span class="text-[10px] mono">REPOSITORY</span>
+                </div>
+                <div class="pipeline-connector mx-8 opacity-30"></div>
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-bolt text-4xl text-[#00ad9f] mb-3"></i>
+                    <span class="text-[10px] mono">PRODUCTION</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Control Deck -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            <!-- Github Access -->
+            <a href="https://github.com/YOUR_USERNAME/YOUR_REPO" target="_blank" 
+               class="btn-external bg-[#24292e] p-6 rounded-2xl flex items-center justify-between group">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                        <i class="fab fa-github text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm">Open GitHub</h3>
+                        <p class="text-[10px] text-slate-400">Manage Source & Commits</p>
+                    </div>
+                </div>
+                <i class="fas fa-external-link-alt text-slate-500 group-hover:text-white transition-colors"></i>
+            </a>
+
+            <!-- Netlify Access -->
+            <a href="https://app.netlify.com/teams/YOUR_TEAM/sites/YOUR_SITE" target="_blank" 
+               class="btn-external bg-[#00ad9f]/20 p-6 rounded-2xl flex items-center justify-between border-[#00ad9f]/30 group">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-[#00ad9f]/20 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-server text-2xl text-[#00ad9f]"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm">Open Netlify</h3>
+                        <p class="text-[10px] text-slate-400">Manage Deployment & SSL</p>
+                    </div>
+                </div>
+                <i class="fas fa-external-link-alt text-[#00ad9f] group-hover:text-white transition-colors"></i>
+            </a>
+        </div>
+
+        <!-- Terminal Logs -->
+        <div class="glass-panel rounded-2xl p-6 h-64 flex flex-col">
+            <div class="flex justify-between items-center mb-4 border-b border-white/5 pb-2">
+                <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Live_Build_Logs</h4>
+                <div class="flex gap-2">
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                    <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+                    <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                </div>
+            </div>
+            <div class="flex-1 overflow-y-auto font-mono text-[11px] space-y-1 text-slate-400" id="logBox">
+                <p>> Initializing BlackLogic Cloud Engine...</p>
+                <p>> Handshake with GitHub secure...</p>
+                <p class="text-green-400">> STATUS: Pipeline standing by for new commits.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulation of log updates
+        const logBox = document.getElementById('logBox');
+        setInterval(() => {
+            const p = document.createElement('p');
+            p.textContent = `> Pinging production edge... 200 OK (${Math.floor(Math.random() * 50) + 10}ms)`;
+            logBox.appendChild(p);
+            if(logBox.children.length > 10) logBox.removeChild(logBox.firstChild);
+            logBox.scrollTop = logBox.scrollHeight;
+        }, 8000);
+    </script>
+</body>
+</html>

@@ -1,263 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BlackLogic Software Studio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackLogic | Engineering Command Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #00ffff;
+            --surface: rgba(15, 23, 42, 0.8);
+            --border: rgba(0, 255, 255, 0.15);
+        }
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, #0f172a, #020617);
+            color: #e2e8f0;
+        }
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+        .glass-card {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-<style>
-:root{
-  --primary:#00f0ff; /* Electric Blue */
-}
+        .glass-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',sans-serif;
-}
+        .mono { font-family: 'JetBrains Mono', monospace; }
 
-body{
-  background:url('back.jpg') no-repeat center center/cover;
-  min-height:100vh;
-  color:white;
-  overflow-x:hidden;
-}
+        /* Smooth SideNav */
+        #sideNav {
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+        }
 
-/* Dark overlay */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.75);
-  z-index:-1;
-}
+        .status-pulse {
+            animation: pulse 2s infinite;
+        }
 
-/* HEADER */
-header{
-  height:70px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 25px;
-  background:rgba(0,0,0,0.6);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(0,240,255,0.4);
-}
-
-.hamburger{
-  font-size:22px;
-  cursor:pointer;
-  color:var(--primary);
-}
-
-/* SIDE NAVIGATION */
-.sidenav{
-  position:fixed;
-  top:0;
-  left:-260px;
-  width:250px;
-  height:100%;
-  background:rgba(0,0,0,0.5);
-  backdrop-filter:blur(20px);
-  border-right:1px solid rgba(0,240,255,0.4);
-  padding-top:80px;
-  transition:0.4s ease;
-  z-index:1000;
-  display:flex;
-  flex-direction:column;
-}
-
-.sidenav.open{
-  left:0;
-}
-
-.close-btn{
-  position:absolute;
-  top:20px;
-  right:20px;
-  font-size:20px;
-  cursor:pointer;
-  color:var(--primary);
-}
-
-.sidenav a{
-  padding:18px 25px;
-  color:#ddd;
-  text-decoration:none;
-  display:flex;
-  align-items:center;
-  gap:15px;
-  transition:0.3s;
-  font-size:14px;
-}
-
-.sidenav a i{
-  color:var(--primary);
-}
-
-.sidenav a:hover{
-  background:var(--primary);
-  color:black;
-}
-
-.sidenav a:hover i{
-  color:black;
-}
-
-/* BANNER */
-.banner{
-  height:250px;
-  margin:25px;
-  border-radius:20px;
-  background-size:cover;
-  background-position:center;
-  box-shadow:0 0 35px rgba(0,240,255,0.6);
-  transition:background-image 1s ease-in-out;
-}
-
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;
-  padding:25px;
-}
-
-.card{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(15px);
-  padding:30px;
-  border-radius:15px;
-  text-align:center;
-  transition:0.3s;
-  border:1px solid rgba(0,240,255,0.4);
-}
-
-.card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 0 30px rgba(0,240,255,0.9);
-}
-
-.card i{
-  font-size:40px;
-  margin-bottom:15px;
-  color:var(--primary);
-}
-</style>
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+    </style>
 </head>
+<body class="min-h-screen">
 
-<body>
-
-<header>
-  <div class="hamburger" onclick="openNav()">
-    <i class="fas fa-bars"></i>
-  </div>
-  <div>Software Engineer</div>
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5 p-4 flex justify-between items-center">
+    <div class="flex items-center gap-4">
+        <button id="hamburgerBtn" class="text-cyan-400 text-xl hover:bg-white/5 p-2 rounded-lg transition">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="mono font-bold text-cyan-400 tracking-tighter">BLACKLOGIC.OS <span class="text-xs font-light text-slate-500 ml-2">v2.4.0</span></h1>
+    </div>
+    <div class="flex items-center gap-6 text-xs mono">
+        <div class="hidden md:flex items-center gap-2">
+            <span class="w-2 h-2 bg-green-500 rounded-full status-pulse"></span>
+            <span class="text-slate-400">SERVER: UP_ZA_MP</span>
+        </div>
+        <button onclick="location.href='login.html'" class="text-slate-400 hover:text-white">SIGNOUT</button>
+    </div>
 </header>
 
-<!-- SIDE NAV -->
-<div class="sidenav" id="sidenav">
+<main class="pt-24 px-6 pb-12 max-w-[1600px] mx-auto">
+    
+    <!-- Hero Banner with Integrated Branding -->
+    <div class="relative w-full h-[300px] rounded-3xl overflow-hidden mb-8 border border-white/5">
+        <img src="studio2.png" alt="Studio" class="w-full h-full object-cover opacity-60">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div>
+        <div class="absolute bottom-8 left-8">
+            <h2 class="text-4xl font-bold mb-2">Workspace Dashboard</h2>
+            <p class="text-cyan-400 mono">Welcome back, Mthokozisi Mathebula.</p>
+        </div>
+    </div>
 
-  <div class="close-btn" onclick="closeNav()">
-    <i class="fas fa-times"></i>
-  </div>
+    <!-- Telemetry Bar (Active Users) -->
+    <div class="glass-card rounded-2xl p-4 mb-8 flex flex-wrap gap-6 items-center">
+        <span class="text-xs font-bold text-slate-500 mono uppercase tracking-widest border-r border-white/10 pr-6">Team Live</span>
+        <div class="flex gap-4">
+            <div class="flex items-center gap-2 bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                <span class="text-xs font-medium">Logic</span>
+            </div>
+            <div class="flex items-center gap-2 bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                <span class="text-xs font-medium">Quinn Asanda</span>
+            </div>
+            <div class="flex items-center gap-2 bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                <span class="text-xs font-medium">Fortune</span>
+            </div>
+        </div>
+    </div>
 
-  <a href="aistudio.html">
-        <i class="fas fa-microchip"></i> AI Studio
-  </a>
+    <!-- Studio Ecosystem Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- NEW: Pipeline Studio (GitHub/Netlify) -->
+        <div class="glass-card rounded-2xl p-6 group cursor-pointer border-l-4 border-l-orange-500">
+            <div class="flex justify-between items-start mb-4">
+                <i class="fab fa-github text-3xl text-white group-hover:text-orange-500 transition"></i>
+                <span class="text-[10px] bg-orange-500/20 text-orange-400 px-2 py-1 rounded mono">DEPLOY</span>
+            </div>
+            <h3 class="font-bold text-lg mb-1">Pipeline Studio</h3>
+            <p class="text-slate-400 text-sm mb-4">Git automation & Netlify global hosting interface.</p>
+            <div class="pt-4 border-t border-white/5 text-[10px] mono text-slate-500">
+                LAST PUSH: 4 MINS AGO
+            </div>
+        </div>
 
-  <a href="prompt.html">
-    <i class="fas fa-lightbulb"></i> Prompt Studio
-  </a>
+        <!-- Code Studio -->
+        <div class="glass-card rounded-2xl p-6 group cursor-pointer border-l-4 border-l-green-500">
+            <div class="flex justify-between items-start mb-4">
+                <i class="fas fa-terminal text-3xl text-white group-hover:text-green-500 transition"></i>
+                <span class="text-[10px] bg-green-500/20 text-green-400 px-2 py-1 rounded mono">MONACO</span>
+            </div>
+            <h3 class="font-bold text-lg mb-1">Code Studio</h3>
+            <p class="text-slate-400 text-sm mb-4">Integrated IDE for cloud-native development.</p>
+            <div class="pt-4 border-t border-white/5 text-[10px] mono text-slate-500">
+                ACTIVE: 2 FILES OPEN
+            </div>
+        </div>
 
-  <a href="codeeditor.html">
-    <i class="fas fa-code"></i> Code Studio
-  </a>
+        <!-- AI Studio -->
+        <div class="glass-card rounded-2xl p-6 group cursor-pointer border-l-4 border-l-cyan-400">
+            <div class="flex justify-between items-start mb-4">
+                <i class="fas fa-microchip text-3xl text-white group-hover:text-cyan-400 transition"></i>
+                <span class="text-[10px] bg-cyan-400/20 text-cyan-400 px-2 py-1 rounded mono">NEURAL</span>
+            </div>
+            <h3 class="font-bold text-lg mb-1">AI Studio</h3>
+            <p class="text-slate-400 text-sm mb-4">Collaborate with BlackLogic AI agents.</p>
+            <div class="pt-4 border-t border-white/5 text-[10px] mono text-slate-500">
+                MODEL: GPT-4-BL
+            </div>
+        </div>
 
-  <a href="design.html">
-    <i class="fas fa-paint-brush"></i> Design Studio
-  </a>
+        <!-- Design Studio -->
+        <div class="glass-card rounded-2xl p-6 group cursor-pointer border-l-4 border-l-pink-500">
+            <div class="flex justify-between items-start mb-4">
+                <i class="fas fa-bezier-curve text-3xl text-white group-hover:text-pink-500 transition"></i>
+                <span class="text-[10px] bg-pink-500/20 text-pink-400 px-2 py-1 rounded mono">CANVA+</span>
+            </div>
+            <h3 class="font-bold text-lg mb-1">Design Studio</h3>
+            <p class="text-slate-400 text-sm mb-4">UX/UI design & brand identity systems.</p>
+            <div class="pt-4 border-t border-white/5 text-[10px] mono text-slate-500">
+                LATEST: BRAND_BOOK_V2
+            </div>
+        </div>
 
-  <a href="principle.html">
-    <i class="fas fa-book"></i> Principles Studio
-  </a>
+    </div>
+</main>
 
-  <a href="meetstudio.html">
-    <i class="fas fa-video"></i> AI Meeting Studio
-  </a>
-
-</div>
-
-<!-- DYNAMIC BANNER -->
-<div class="banner" id="banner"></div>
-
-<!-- GRID -->
-<div class="grid">
-
-  <div class="card">
-    <i class="fas fa-microchip"></i>
-    <h3>AI Studio</h3>
-    <p>Your AI teammates and intelligent systems live here.</p>
-  </div>
-
-  <div class="card">
-    <i class="fas fa-lightbulb"></i>
-    <h3>Prompt Studio</h3>
-    <p>Use structured prompts to design, build and accelerate innovation.</p>
-  </div>
-
-  <div class="card">
-    <i class="fas fa-code"></i>
-    <h3>Code Studio</h3>
-    <p>Develop, test and deploy applications within the ecosystem.</p>
-  </div>
-
-  <div class="card">
-    <i class="fas fa-paint-brush"></i>
-    <h3>Design Studio</h3>
-    <p>Create UI, branding and digital visuals aligned with BlackLogic identity.</p>
-  </div>
-
-  <div class="card">
-    <i class="fas fa-book"></i>
-    <h3>Principles Studio</h3>
-    <p>Centralized standards, philosophy and system governance.</p>
-  </div>
-
-  <div class="card">
-    <i class="fas fa-video"></i>
-    <h3>AI Meeting Studio</h3>
-    <p>Host structured meetings with AI-assisted summaries and tracking.</p>
-  </div>
-
+<!-- Side Navigation (Mobile Overlay) -->
+<div id="sideNav" class="fixed top-0 left-0 h-full w-0 bg-slate-950/95 z-[100] overflow-hidden">
+    <div class="p-8">
+        <button onclick="closeNav()" class="text-3xl mb-8">&times;</button>
+        <nav class="flex flex-col gap-6 text-lg mono">
+             <a href="principle.html" class="text-blue-400 hover:pl-2 transition-all">_PRINCIPLES</a>
+            <a href="pipeline.html" class="text-orange-400 hover:pl-2 transition-all">_PIPELINE</a>
+            <a href="codeeditor.html" class="text-green-400 hover:pl-2 transition-all">_CODE</a>
+            <a href="aistudio.html" class="text-cyan-400 hover:pl-2 transition-all">_AI_UNITS</a>
+            <a href="design.html" class="text-pink-400 hover:pl-2 transition-all">_DESIGN</a>
+            <a href="meetstudio.html" class="text-red-400 hover:pl-2 transition-all">_MEETINGS</a>
+        </nav>
+    </div>
 </div>
 
 <script>
-function openNav(){
-  document.getElementById("sidenav").classList.add("open");
-}
+    const sideNav = document.getElementById("sideNav");
+    const hamburgerBtn = document.getElementById("hamburgerBtn");
 
-function closeNav(){
-  document.getElementById("sidenav").classList.remove("open");
-}
-
-/* Dynamic Banner */
-const images = ["studio2.png","up.png"];
-let index = 0;
-const banner = document.getElementById("banner");
-
-function changeBanner(){
-  banner.style.backgroundImage = `url(${images[index]})`;
-  index = (index + 1) % images.length;
-}
-
-changeBanner();
-setInterval(changeBanner,5000);
+    function openNav() { sideNav.style.width = "300px"; }
+    function closeNav() { sideNav.style.width = "0"; }
+    
+    hamburgerBtn.addEventListener("click", openNav);
 </script>
 
 </body>

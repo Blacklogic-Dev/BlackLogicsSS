@@ -3,122 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlackLogic Software Studio - Principles Studio</title>
-    <!-- Tailwind CSS -->
+    <title>BlackLogic | Principles Studio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #00ffff;
+            --bg: #020617;
+            --card-bg: rgba(15, 23, 42, 0.6);
+            --border: rgba(0, 255, 255, 0.1);
+        }
+
         body {
-            font-family: 'Courier New', monospace;
-            background: linear-gradient(to bottom, #4b5563, #000000); /* gray to black gradient */
-            color: #00ffff; /* electric blue code font */
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top, #0f172a 0%, #020617 100%);
+            color: #f8fafc;
         }
-        .section-title {
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #00ffff;
-            display: inline-block;
-            padding-bottom: 4px;
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .card {
-            background: rgba(0,0,0,0.6);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            transition: 0.3s;
+
+        .glass-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+            transform: translateY(-5px);
         }
-        .card:hover {
-            background: rgba(0,255,255,0.1);
+
+        .section-header {
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            margin-bottom: 2rem;
         }
-        .card i {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
+
         .view-btn {
-            margin-top: 10px;
-            background: #00ffff;
-            color: black;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: bold;
+            width: 100%;
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: 0.3s;
+            margin-top: 1.5rem;
         }
+
         .view-btn:hover {
-            background: #00cccc;
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 15px var(--primary);
         }
+
+        /* Category Glows */
+        .eng-glow:hover { border-color: #22d3ee; }
+        .des-glow:hover { border-color: #f472b6; }
     </style>
 </head>
-<body class="min-h-screen p-6">
+<body class="min-h-screen pb-20">
 
-    <div class="text-center mb-8">
-        <h1 class="section-title">Principles Studio</h1>
-        <p class="text-gray-300">Explore the core principles and mindsets of BlackLogic Technologies for engineers and designers.</p>
-    </div>
-
-    <!-- Engineering Principles Section -->
-    <div class="mb-12">
-        <h2 class="section-title">Engineering Principles</h2>
-        <p class="mb-4 text-gray-300">The core documents every engineer and developer needs to master to qualify as a BlackLogic Technologist.</p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Card 1: Engineering Mindset -->
-            <div class="card">
-                <i class="fas fa-brain text-green-400"></i>
-                <p class="mt-2 text-gray-300">Engineering Mindset</p>
-                <button class="view-btn" onclick="window.open('mind.pdf','_blank')">View PDF</button>
-            </div>
-            <!-- Card 2: Engineering Intelligence -->
-            <div class="card">
-                <i class="fas fa-lightbulb text-yellow-400"></i>
-                <p class="mt-2 text-gray-300">Engineering Intelligence</p>
-                <button class="view-btn" onclick="window.open('Intelligence.pdf','_blank')">View PDF</button>
-            </div>
-            <!-- Card 3: Start With Why Mindset -->
-            <div class="card">
-                <i class="fas fa-question-circle text-pink-400"></i>
-                <p class="mt-2 text-gray-300">Start With Why Mindset</p>
-                <button class="view-btn" onclick="window.open('mindset.pdf','_blank')">View PDF</button>
-            </div>
-            <!-- Card 4: Engineering Principles -->
-            <div class="card">
-                <i class="fas fa-cogs text-cyan-400"></i>
-                <p class="mt-2 text-gray-300">Engineering Principles</p>
-                <button class="view-btn" onclick="window.open('principleng.pdf','_blank')">View PDF</button>
-            </div>
+    <!-- Header Navigation -->
+    <nav class="p-6 border-b border-white/5 mb-12 flex justify-between items-center">
+        <a href="dashboard.html" class="text-slate-400 hover:text-cyan-400 transition mono text-xs">
+            <i class="fas fa-chevron-left mr-2"></i> EXIT_TO_DASHBOARD
+        </a>
+        <div class="mono text-[10px] tracking-widest text-slate-500">
+            SYSTEM_DOCS // CLASSIFIED
         </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-6">
+        
+        <!-- Hero Title -->
+        <header class="mb-20">
+            <h1 class="text-5xl font-bold tracking-tighter mb-4 uppercase italic">Principles Studio</h1>
+            <p class="text-slate-400 max-w-2xl leading-relaxed">
+                The foundational laws of the BlackLogic Ecosystem. These protocols define how we build, 
+                design, and innovate within the technical landscape of Mpumalanga and beyond.
+            </p>
+        </header>
+
+        <!-- Engineering Protocol Section -->
+        <section class="mb-24">
+            <div class="section-header">
+                <h2 class="text-2xl font-bold mono uppercase tracking-tight text-cyan-400">Engineering Protocols</h2>
+                <p class="text-sm text-slate-500 mt-1">Core logic and architectural standards for developers.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Logic -->
+                <div class="glass-card eng-glow rounded-2xl p-8 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-cyan-400/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-brain text-cyan-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Problem Solving</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Logic-first approaches to complex software challenges.</p>
+                    <button class="view-btn mono" onclick="window.open('engineering_principles.pdf','_blank')">Initialize_Read</button>
+                </div>
+
+                <!-- Architecture -->
+                <div class="glass-card eng-glow rounded-2xl p-8 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-green-400/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-layer-group text-green-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">System Design</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Scaling infrastructure and cloud architecture patterns.</p>
+                    <button class="view-btn mono" onclick="window.open('engineering_principles.pdf','_blank')">Initialize_Read</button>
+                </div>
+
+                <!-- Standards -->
+                <div class="glass-card eng-glow rounded-2xl p-8 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-yellow-400/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-terminal text-yellow-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Clean Code</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Syntax standards and documentation requirements.</p>
+                    <button class="view-btn mono" onclick="window.open('engineering_principles.pdf','_blank')">Initialize_Read</button>
+                </div>
+
+                <!-- Debugging -->
+                <div class="glass-card eng-glow rounded-2xl p-8 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-purple-400/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-bug text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">QA & Debugging</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Error handling and automated testing lifecycles.</p>
+                    <button class="view-btn mono" onclick="window.open('engineering_principles.pdf','_blank')">Initialize_Read</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Philosophy Section -->
+        <section>
+            <div class="section-header border-pink-500">
+                <h2 class="text-2xl font-bold mono uppercase tracking-tight text-pink-500">Design Philosophy</h2>
+                <p class="text-sm text-slate-500 mt-1">Visual language and user-centric experience guidelines.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Color/Type -->
+                <div class="glass-card des-glow rounded-2xl p-8 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-pink-400/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-palette text-pink-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Visual Identity</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Mastering our core color theory and font systems.</p>
+                    <button class="view-btn mono" onclick="window.open('design_principles.pdf','_blank')">Initialize_Read</button>
+                </div>
+
+                <!-- Layout -->
+                <div class="glass-card des-glow rounded-2xl p-8 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-orange-400/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-th-large text-orange-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Composition</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Grids, spacing, and industrial layout patterns.</p>
+                    <button class="view-btn mono" onclick="window.open('design_principles.pdf','_blank')">Initialize_Read</button>
+                </div>
+
+                <!-- UI/UX -->
+                <div class="glass-card des-glow rounded-2xl p-8 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-blue-400/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-fingerprint text-blue-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">UX Psychology</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">User flow optimization and interaction design.</p>
+                    <button class="view-btn mono" onclick="window.open('design_principles.pdf','_blank')">Initialize_Read</button>
+                </div>
+
+                <!-- Innovation -->
+                <div class="glass-card des-glow rounded-2xl p-8 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-yellow-400/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-lightbulb text-yellow-400 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Innovation</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Breaking design standards to create the future.</p>
+                    <button class="view-btn mono" onclick="window.open('design_principles.pdf','_blank')">Initialize_Read</button>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <!-- Design Principles Section -->
-    <div>
-        <h2 class="section-title">Design Principles</h2>
-        <p class="mb-4 text-gray-300">The key rules, mindsets, and intelligence documents for creating visually consistent, user-centric designs.</p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Card 1: UX/UI Layout -->
-            <div class="card">
-                <i class="fas fa-object-ungroup text-orange-400"></i>
-                <p class="mt-2 text-gray-300">UX / UI Layout</p>
-                <button class="view-btn" onclick="window.open('uxui.pdf','_blank')">View PDF</button>
-            </div>
-            <!-- Card 2: Design Intelligence -->
-            <div class="card">
-                <i class="fas fa-lightbulb text-yellow-400"></i>
-                <p class="mt-2 text-gray-300">Design Intelligence</p>
-                <button class="view-btn" onclick="window.open('DesignIntel.pdf','_blank')">View PDF</button>
-            </div>
-            <!-- Card 3: Design Mindset -->
-            <div class="card">
-                <i class="fas fa-brain text-green-400"></i>
-                <p class="mt-2 text-gray-300">Design Mindset</p>
-                <button class="view-btn" onclick="window.open('Designmindset.pdf','_blank')">View PDF</button>
-            </div>
-            <!-- Card 4: Design Principles -->
-            <div class="card">
-                <i class="fas fa-paint-brush text-pink-400"></i>
-                <p class="mt-2 text-gray-300">Design Principles</p>
-                <button class="view-btn" onclick="window.open('principled.pdf','_blank')">View PDF</button>
-            </div>
-        </div>
-    </div>
+    <!-- Footer Security Note -->
+    <footer class="mt-32 text-center border-t border-white/5 pt-12">
+        <p class="text-[10px] mono text-slate-600 tracking-[0.3em]">
+            PROPERTY OF BLACKLOGIC TECHNOLOGIES HARDWARE & PROJECTS (PTY) LTD
+        </p>
+    </footer>
 
 </body>
 </html>

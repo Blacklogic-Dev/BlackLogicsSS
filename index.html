@@ -3,90 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlackLogic Software Studio</title>
+    <title>BlackLogic | Software Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;700&family=Inter:wght@800&display=swap" rel="stylesheet">
     <style>
-        /* Reset */
+        :root {
+            --primary: #00ffff;
+            --glass: rgba(0, 0, 0, 0.7);
+            --border: rgba(0, 255, 255, 0.2);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Courier New', monospace;
         }
 
-        html, body {
+        body, html {
             height: 100%;
             width: 100%;
+            font-family: 'JetBrains Mono', monospace;
+            overflow: hidden;
+            background: #000; /* Fallback */
         }
 
-        body {
+        /* THE BANNER: Keeping your studio.png background */
+        .hero-banner {
+            height: 100vh;
+            width: 100%;
             background: url('studio.png') no-repeat center center/cover;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
             align-items: center;
+            justify-content: center;
+            position: relative;
         }
 
-        /* Typewriter welcome */
-        .welcome {
-            margin-top: 50px;
-            font-size: 36px;
-            color: #00ffff; /* electric blue */
-            white-space: nowrap;
-            overflow: hidden;
-            border-right: .15em solid #00ffff;
-            width: 12ch;
-            animation: typing 2s steps(12), blink .5s step-end infinite alternate;
+        /* THE OVERLAY: Making the branding "Pop" on top of the image */
+        .branding-overlay {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            max-width: 900px;
+            width: 90%;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            animation: slideUp 0.8s ease-out;
         }
 
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 12ch }
+        .studio-title {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(32px, 6vw, 64px);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
 
-        @keyframes blink {
-            50% { border-color: transparent }
+        .studio-title span {
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
         }
 
-        /* Login button */
-        .login-button {
-            margin-bottom: 50px;
-            padding: 15px 40px;
-            font-size: 24px;
-            font-weight: bold;
-            color: black;
-            background: #00ffff;
-            border: none;
+        .branding-statement {
+            font-size: clamp(16px, 2.5vw, 22px);
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* THE LOGIC BUTTON */
+        .action-button {
+            background: var(--primary);
+            color: #000;
+            padding: 18px 50px;
             border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s;
         }
 
-        .login-button:hover {
-            background: #00cccc;
+        .action-button:hover {
+            background: #fff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+            transform: translateY(-3px);
         }
 
-        @media (max-width: 480px) {
-            .welcome {
-                font-size: 28px;
-            }
-            .login-button {
-                font-size: 20px;
-                padding: 12px 30px;
-            }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="welcome"></div>
+    <section class="hero-banner">
+        <div class="branding-overlay">
+            <h1 class="studio-title">BlackLogic <span>Studios</span></h1>
+            
+            <!-- These are those "beautiful words" integrated onto the banner -->
+            <p class="branding-statement">
+                A seamless ecosystem engineered for <strong>Engineers</strong>, 
+                <strong>Developers</strong>, and <strong>Designers</strong> 
+                to innovate in one unified industrial environment.
+            </p>
 
-    <button class="login-button" onclick="goToDashboard()">Login</button>
-
-    <script>
-        function goToDashboard() {
-            window.location.href = "login.html";
-        }
-    </script>
+            <button class="action-button" onclick="location.href='login.html'">
+                Initialize System
+            </button>
+        </div>
+    </section>
 
 </body>
 </html>
