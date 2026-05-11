@@ -3,104 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlackLogic Software Studio - AI Studio</title>
-    <!-- Tailwind CSS -->
+    <title>BlackLogic | AI Studio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        body { font-family: 'JetBrains Mono', monospace; }
+        .glass-card { 
+            background: rgba(31, 41, 55, 0.7); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover { 
+            transform: translateY(-5px);
+            border-color: rgba(34, 211, 238, 0.4);
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-b from-gray-400 to-black min-h-screen font-mono text-white">
+<body class="bg-gradient-to-b from-gray-900 via-black to-gray-900 min-h-screen text-white pb-20">
 
     <!-- Page Title -->
-    <div class="text-center py-6">
-        <h1 class="text-3xl text-cyan-400 font-bold">AI Studio</h1>
-        <p class="text-gray-200 mt-2">Explore AI models for Development & Design and essential tools</p>
-    </div>
+    <header class="text-center py-12 px-4">
+        <h1 class="text-4xl md:text-5xl text-cyan-400 font-bold tracking-tighter uppercase italic">AI Studio</h1>
+        <p class="text-gray-400 mt-3 max-w-2xl mx-auto text-sm">Centralized Neural Interface for BlackLogic Engineering & Design Operations.</p>
+    </header>
 
-    <!-- AI Models Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-        <!-- ChatGPT -->
-        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col">
-            <img src="open.jpg" alt="ChatGPT" class="w-full h-[250px] object-cover">
-            <div class="p-4 flex flex-col flex-grow">
-                <h2 class="text-cyan-400 font-bold text-xl mb-1">OpenAI ChatGPT</h2>
-                <span class="text-gray-400 text-sm mb-2">Version: GPT-5</span>
-                <p class="text-gray-300 text-sm flex-grow">AI model for development: code generation, debugging, and programming suggestions.</p>
-                <a href="https://chat.openai.com/" target="_blank" class="mt-4 bg-cyan-400 text-black font-bold py-2 rounded hover:bg-cyan-300 transition text-center">Access</a>
-            </div>
-        </div>
-
-        <!-- Gemini -->
-        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col">
-            <img src="gemini.webp" alt="Google Gemini" class="w-full h-[250px] object-cover">
-            <div class="p-4 flex flex-col flex-grow">
-                <h2 class="text-pink-400 font-bold text-xl mb-1">Google Gemini</h2>
-                <span class="text-gray-400 text-sm mb-2">Version: Gemini 3</span>
-                <p class="text-gray-300 text-sm flex-grow">AI model for design: generating creative assets, logos, layouts, and visual design suggestions.</p>
-                <a href="https://www.google.com/gemini" target="_blank" class="mt-4 bg-pink-400 text-black font-bold py-2 rounded hover:bg-pink-300 transition text-center">Access</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tools Section -->
-    <div class="p-6 mt-8">
-        <h2 class="text-2xl text-yellow-400 font-bold mb-4">Tools</h2>
-
-        <!-- Desktop Tools -->
-        <div class="mb-6">
-            <h3 class="text-xl text-gray-200 font-semibold mb-2">Desktop</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- VS Code -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col">
-                    <img src="vscode.jpg" alt="VS Code" class="w-full h-48 object-cover">
-                    <div class="p-4 flex flex-col flex-grow">
-                        <h4 class="text-green-400 font-bold mb-1">VS Code</h4>
-                        <p class="text-gray-300 text-sm flex-grow">Powerful code editor for desktop development across multiple languages and frameworks.</p>
-                        <a href="https://vscode.dev/" target="_blank" class="mt-4 bg-green-400 text-black font-bold py-2 rounded hover:bg-green-300 transition text-center">Open</a>
+    <!-- Main Grid -->
+    <main class="max-w-7xl mx-auto px-6">
+        
+        <!-- Section: AI Models -->
+        <div class="mb-12">
+            <h2 class="text-xs font-bold text-cyan-400 uppercase tracking-[0.3em] mb-6 flex items-center gap-2">
+                <span class="w-8 h-[1px] bg-cyan-400"></span> Primary_Models
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- ChatGPT -->
+                <div class="glass-card rounded-2xl overflow-hidden flex flex-col">
+                    <div class="h-48 bg-gradient-to-br from-emerald-600 to-teal-900 flex items-center justify-center">
+                        <i class="fas fa-terminal text-6xl text-white/20"></i>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h2 class="text-emerald-400 font-bold text-xl mb-1">OpenAI ChatGPT</h2>
+                        <span class="text-slate-500 text-[10px] mb-4">ENGINEERING & LOGIC</span>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Optimized for Python automation, cloud architecture, and debugging KX-armor firmware.</p>
+                        <a href="https://chat.openai.com/" target="_blank" class="mt-auto bg-emerald-500 text-black font-bold py-3 rounded-xl hover:bg-emerald-400 transition text-center text-sm">Access Terminal</a>
                     </div>
                 </div>
-                <!-- Canva Desktop -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col">
-                    <img src="canva.png" alt="Canva" class="w-full h-48 object-cover">
-                    <div class="p-4 flex flex-col flex-grow">
-                        <h4 class="text-pink-400 font-bold mb-1">Canva</h4>
-                        <p class="text-gray-300 text-sm flex-grow">Design graphics, presentations, and creative layouts directly on desktop.</p>
-                        <a href="https://www.canva.com/" target="_blank" class="mt-4 bg-pink-400 text-black font-bold py-2 rounded hover:bg-pink-300 transition text-center">Open</a>
+
+                <!-- Gemini -->
+                <div class="glass-card rounded-2xl overflow-hidden flex flex-col">
+                    <div class="h-48 bg-gradient-to-br from-blue-600 to-purple-900 flex items-center justify-center">
+                        <i class="fas fa-wand-magic-sparkles text-6xl text-white/20"></i>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h2 class="text-pink-400 font-bold text-xl mb-1">Google Gemini</h2>
+                        <span class="text-slate-500 text-[10px] mb-4">VISUALS & SYNTHESIS</span>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Multimodal generation for UI layouts, industrial logos, and 3D concept visualizations.</p>
+                        <a href="https://gemini.google.com/" target="_blank" class="mt-auto bg-pink-500 text-black font-bold py-3 rounded-xl hover:bg-pink-400 transition text-center text-sm">Access Lab</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile Tools -->
-        <div>
-            <h3 class="text-xl text-gray-200 font-semibold mb-2">Mobile</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <!-- Code Editor Mobile -->
-<div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col">
-    <img src="codeeditor.jpg" alt="Code Editor" class="w-full h-48 object-cover">
-    <div class="p-4 flex flex-col flex-grow">
-        <h4 class="text-cyan-400 font-bold mb-1">Code Editor</h4>
-        <p class="text-gray-300 text-sm flex-grow">Edit and test your code on mobile devices with full syntax highlighting.</p>
-<a href="https://jsfiddle.net/" target="_blank" class="mt-4 bg-cyan-400 text-black font-bold py-2 rounded hover:bg-cyan-300 transition text-center">
-    Open
-</a>
-    </div>
-</div>
-
-                </div>
-                <!-- Canva Mobile -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg flex flex-col">
-                    <img src="canva.png" alt="Canva Mobile" class="w-full h-48 object-cover">
-                    <div class="p-4 flex flex-col flex-grow">
-                        <h4 class="text-pink-400 font-bold mb-1">Canva</h4>
-                        <p class="text-gray-300 text-sm flex-grow">Design creative assets directly on your mobile device with Canva.</p>
-                        <a href="https://www.canva.com/" target="_blank" class="mt-4 bg-pink-400 text-black font-bold py-2 rounded hover:bg-pink-300 transition text-center">Open</a>
+        <!-- Section: Infrastructure & Tools -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            <!-- Desktop Tools -->
+            <div class="space-y-6">
+                <h3 class="text-xs font-bold text-yellow-500 uppercase tracking-widest mb-4">Workstation_Desktop</h3>
+                <div class="glass-card p-4 rounded-xl flex items-center gap-4">
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center text-blue-400 text-xl"><i class="fas fa-code"></i></div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold">VS Code</h4>
+                        <p class="text-[10px] text-gray-500">Cloud Editor</p>
                     </div>
+                    <a href="https://vscode.dev/" target="_blank" class="text-xs bg-white/5 px-3 py-1 rounded-md hover:bg-white/10">Open</a>
+                </div>
+                <div class="glass-card p-4 rounded-xl flex items-center gap-4">
+                    <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center text-cyan-400 text-xl"><i class="fas fa-palette"></i></div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold">Canva</h4>
+                        <p class="text-[10px] text-gray-500">Brand Assets</p>
+                    </div>
+                    <a href="https://www.canva.com/" target="_blank" class="text-xs bg-white/5 px-3 py-1 rounded-md hover:bg-white/10">Open</a>
                 </div>
             </div>
-        </div>
 
-    </div>
+            <!-- Deployment Pipeline -->
+            <div class="space-y-6">
+                <h3 class="text-xs font-bold text-orange-500 uppercase tracking-widest mb-4">Cloud_Pipeline</h3>
+                <div class="glass-card p-4 rounded-xl flex items-center gap-4">
+                    <div class="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center text-orange-500 text-xl"><i class="fab fa-github"></i></div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold">GitHub</h4>
+                        <p class="text-[10px] text-gray-500">Source Control</p>
+                    </div>
+                    <a href="https://github.com/" target="_blank" class="text-xs bg-white/5 px-3 py-1 rounded-md hover:bg-white/10">Repo</a>
+                </div>
+                <div class="glass-card p-4 rounded-xl flex items-center gap-4">
+                    <div class="w-12 h-12 bg-teal-500/20 rounded-lg flex items-center justify-center text-teal-400 text-xl"><i class="fas fa-bolt"></i></div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold">Netlify</h4>
+                        <p class="text-[10px] text-gray-500">Edge Hosting</p>
+                    </div>
+                    <a href="https://app.netlify.com/" target="_blank" class="text-xs bg-white/5 px-3 py-1 rounded-md hover:bg-white/10">Deploy</a>
+                </div>
+            </div>
+
+            <!-- Mobile Engineering -->
+            <div class="space-y-6">
+                <h3 class="text-xs font-bold text-purple-500 uppercase tracking-widest mb-4">Mobile_Lab</h3>
+                <div class="glass-card p-4 rounded-xl flex items-center gap-4">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center text-purple-400 text-xl"><i class="fas fa-mobile-alt"></i></div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold">JSFiddle</h4>
+                        <p class="text-[10px] text-gray-500">Mobile Sandbox</p>
+                    </div>
+                    <a href="https://jsfiddle.net/" target="_blank" class="text-xs bg-white/5 px-3 py-1 rounded-md hover:bg-white/10">Run</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Status Bar -->
+    <footer class="fixed bottom-0 w-full bg-black/80 backdrop-blur-md border-t border-white/5 px-6 py-3 flex justify-between items-center text-[10px] text-gray-500">
+        <div>SYSTEM: ONLINE // ENCRYPTION: ACTIVE</div>
+        <div class="flex gap-4">
+            <span>NETWORK: 5G_STABLE</span>
+            <span class="text-cyan-400">© 2026 BLACKLOGIC TECHNOLOGIES</span>
+        </div>
+    </footer>
 
 </body>
 </html>
